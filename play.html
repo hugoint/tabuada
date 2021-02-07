@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Tabuada</title>
+  <meta name="description" content="A game about multiplication">
+  <meta name="author" content="hugoint">
+</head>
+<body style="font:bold 40pt Verdana">
+  <script type="text/javascript">
+
+  	function start() {
+  		done = new Array(12);
+  		for(var i=0; i<12; i++) done[i] = new Array(12);
+
+  		document.getElementById('play').style.display = 'none'
+
+  		next();
+  	}
+  	
+  	function next() {
+  		var x = Math.floor(Math.random() * 12);
+  		var y = Math.floor(Math.random() * 12);
+
+  		if (done[x][y]===1) {
+
+  			for (var i=x; i<x+12; i++) {
+  				for (var j=y; j<y+12; j++) {
+  					if (done[i%12][j%12]!=1) {
+  						x=i%12;
+  						y=j%12;
+  						break;
+  					}
+  				}
+  				if (done[x][y]!=1) break;
+  			}
+  		}
+
+  		if (done[x][y]===1) {
+  			document.getElementById("calc").innerHTML = 'GAME OVER';
+  		} else {
+  			done[x][y]=1;
+  			document.getElementById("calc").innerHTML = (x+1) + ' x ' + (y+1);
+  		}
+  	}
+
+
+  </script>
+  
+  <div id="main" style="background-color:cyan;height: 200px;padding: 10% 40% 30% 40%">
+  	<span id="play" onclick="start()" style="background-color:orange;padding: 30px 30px 30px 30px;cursor: grab;text-align: center;">PLAY</span>
+  	<div id="calc" onclick="next()" style="background-color:orange;padding: 30px 30px 30px 30px;cursor: grab;text-align: center;"></div>
+  </div>
+
+</body>
+</html>
